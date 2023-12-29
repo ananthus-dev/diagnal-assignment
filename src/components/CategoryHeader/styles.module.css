@@ -1,0 +1,42 @@
+.container{
+    display: flex;
+    align-items: center;
+    background-image: url('../../assets/images/nav_bar.png');
+    background-size: contain;
+    background-repeat: repeat-x;
+    position: sticky;
+    top:0;
+    padding: 20px 0;
+}
+
+.backButton{
+    height: 18px;
+    width: 18px;
+}
+
+.categoryTitle{
+    margin: 0;
+    flex: 1;
+    margin-left: 12px;
+    font-size: 2rem;
+    font-family: 'TitilliumWeb-Light';
+    font-weight: normal;
+}
+
+.searchButton{
+    height: 18px;
+    width: 18px;
+}
+
+@media screen and (max-width:480px){
+    .categoryTitle{
+    font-size: 1.6rem;
+    }
+}
+
+@media screen and (max-width:320px){
+    .categoryTitle{
+    font-size: 1.2rem;
+        
+    }
+}

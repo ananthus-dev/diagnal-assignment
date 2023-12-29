@@ -1,0 +1,9 @@
+.container{
+    /* border: 1px solid white; */
+    display: grid;
+    /* grid-template-columns: repeat(auto-fit,minmax(50px,182px)) ; */
+    grid-template-columns: repeat(3,30%) ;
+    grid-gap: 20px;
+    justify-content: space-between;
+    overflow: hidden;
+}
