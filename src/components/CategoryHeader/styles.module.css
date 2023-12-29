@@ -7,11 +7,11 @@
     position: sticky;
     top:0;
     padding: 20px 0;
-}
 
-.backButton{
-    height: 18px;
-    width: 18px;
+    img{
+        height: 18px;
+        width: 18px;
+    }
 }
 
 .categoryTitle{
@@ -23,20 +23,30 @@
     font-weight: normal;
 }
 
-.searchButton{
-    height: 18px;
-    width: 18px;
-}
 
 @media screen and (max-width:480px){
+    .container{
+        img{
+            height: 16px;
+            width: 16px;
+        }
+    }
+
     .categoryTitle{
     font-size: 1.6rem;
     }
 }
 
 @media screen and (max-width:320px){
+
+    .container{
+        img{
+            height: 12px;
+            width: 12px;
+        }
+    }
+
     .categoryTitle{
     font-size: 1.2rem;
-        
     }
 }
