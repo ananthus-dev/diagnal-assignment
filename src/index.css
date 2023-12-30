@@ -16,8 +16,18 @@
 }
 
 @font-face {
+  font-family: 'TitilliumWeb-SemiBold';
+  src: url('./assets/fonts/TitilliumWeb-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
   font-family: 'TitilliumWeb-Light';
   src: url('./assets/fonts/TitilliumWeb-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'TitilliumWeb-Italic';
+  src: url('./assets/fonts/TitilliumWeb-Italic.ttf') format('truetype');
 }
 
 @font-face {

@@ -1,0 +1,19 @@
+.container{
+    flex:1;
+    margin:10px;
+    font-family: 'TitilliumWeb-SemiBold';
+    padding:5px;
+    outline: none;
+}
+
+.container::placeholder{
+    font-family: 'TitilliumWeb-Italic';
+}
+
+
+@media screen and (max-width:320px){
+    .container{
+        margin:5px;
+        padding:1px
+    }
+}
