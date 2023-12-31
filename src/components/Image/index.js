@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import loadingImage from '../../assets/images/placeholder_for_missing_posters.png'
 
-function Image ({ className, imgSrc, altText }) {
+import styles from './styles.module.css'
+
+function Image ({ className, imgSrc, altText, showFallback, onClick }) {
   const [showLoader, setShowLoader] = useState(true)
 
   const onImageLoad = () => {
@@ -10,19 +12,23 @@ function Image ({ className, imgSrc, altText }) {
 
   return (
     <>
-      <img
-        className={className}
-        src={loadingImage}
-        alt={'loading'}
-        style={{ display: showLoader ? 'block' : 'none' }}
-      />
-      <img
-        className={className}
-        src={imgSrc}
-        alt={altText}
-        style={{ display: !showLoader ? 'block' : 'none' }}
-        onLoad={onImageLoad}
-      />
+      <div className={className} onClick={onClick}>
+        {showFallback && (
+          <img
+            className={styles.img}
+            src={loadingImage}
+            alt={'loading'}
+            style={{ display: showLoader ? 'block' : 'none' }}
+          />
+        )}
+        <img
+          className={styles.img}
+          src={imgSrc}
+          alt={altText}
+          style={{ display: !showLoader ? 'block' : 'none' }}
+          onLoad={onImageLoad}
+        />
+      </div>
     </>
   )
 }

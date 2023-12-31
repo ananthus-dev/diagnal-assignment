@@ -12,6 +12,7 @@ function ContentCard ({ title, image }) {
         className={styles.thumbnail}
         imgSrc={`${IMAGE_BASE_URL}/${image}`}
         altText={title}
+        showFallback={true}
       />
       <p>{title}</p>
     </div>
