@@ -1,12 +1,7 @@
-import { CategoryContextProvider } from './context/CategoryContext'
-import Category from './pages/Category'
+import CategoryPage from './pages/CategoryPage'
 
 function App () {
-  return (
-    <CategoryContextProvider>
-      <Category />
-    </CategoryContextProvider>
-  )
+  return <CategoryPage />
 }
 
 export default App

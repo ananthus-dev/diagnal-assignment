@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import loadingImage from '../../assets/images/placeholder_for_missing_posters.png'
 
+import loadingImage from '../../assets/images/placeholder_for_missing_posters.png'
 import styles from './styles.module.css'
 
 function Image ({ className, imgSrc, altText, showFallback, onClick }) {
@@ -13,6 +13,7 @@ function Image ({ className, imgSrc, altText, showFallback, onClick }) {
   return (
     <>
       <div className={className} onClick={onClick}>
+        {/* This will act as the fallback image when the actual image is loading or failed to load */}
         {showFallback && (
           <img
             className={styles.img}

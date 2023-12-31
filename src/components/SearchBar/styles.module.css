@@ -2,14 +2,26 @@
     flex:1;
     margin:10px;
     font-family: 'TitilliumWeb-SemiBold';
-    padding:5px 10px;
+    padding:8px 10px;
     outline: none;
     border-radius: 50px;
-    border-color: transparent;
 }
 
 .container::placeholder{
     font-family: 'TitilliumWeb-Italic';
+    font-size: 1.6rem;
+
+}
+
+@media screen and (max-width:480px){
+    .container{
+        padding:5px 10px;
+    }
+
+    .container::placeholder{
+        font-family: 'TitilliumWeb-Italic';
+        font-size: 1.4rem;
+    }
 }
 
 
@@ -21,6 +33,6 @@
 
     .container::placeholder{
         font-family: 'TitilliumWeb-Italic';
-        font-size: 1rem;
+        font-size: 1.2rem;
     }
 }

@@ -1,12 +1,17 @@
 import React, { useCallback, useContext, useEffect, useRef } from 'react'
-import CategoryHeader from '../../components/CategoryHeader'
-import ContentList from '../../components/ContentList'
-import CategoryContext from '../../context/CategoryContext'
-import { getCategoryPageData } from '../../services'
-
 import throttle from 'lodash.throttle'
 
-function Category () {
+import CategoryHeader from '../../components/CategoryHeader'
+import CategoryContentList from '../../components/CategoryContentList'
+import withContextProvider from '../../hoc/withContextProvider'
+
+import CategoryContext, {
+  CategoryContextProvider
+} from '../../context/CategoryContext'
+
+import { getCategoryPageData } from '../../services'
+
+function CategoryPage () {
   const {
     isSearchMode,
     pageData: { totalItems, currentPage, contentList },
@@ -20,7 +25,6 @@ function Category () {
       try {
         const pageData = await getCategoryPageData(pageNum)
         setPageData(prevPageData => {
-          console.log(prevPageData, pageData)
           return {
             ...pageData,
             contentList: [
@@ -35,19 +39,11 @@ function Category () {
   )
 
   useEffect(() => {
-    console.log('mounting category')
-    return () => {
-      console.log('unmounting category')
-    }
-  }, [])
-
-  useEffect(() => {
     fetchPageData()
   }, [fetchPageData])
 
   useEffect(() => {
     const onScroll = throttle(() => {
-      //   console.log(contentList.length, totalItems)
       const currentScrollTop = document.documentElement.scrollTop
 
       if (
@@ -59,10 +55,10 @@ function Category () {
           document.documentElement.scrollHeight -
           document.documentElement.clientHeight
 
-        const shouldFetchData = currentScrollTop >= 0.75 * maxScrollTop
+        const isScrollPositionThresholdCrossed =
+          currentScrollTop >= 0.75 * maxScrollTop
 
-        if (shouldFetchData) {
-          console.log('75 percent reached', currentPage)
+        if (isScrollPositionThresholdCrossed) {
           fetchPageData(+currentPage + 1)
         }
       }
@@ -75,16 +71,12 @@ function Category () {
     return () => document.removeEventListener('scroll', onScroll)
   }, [isSearchMode, currentPage, fetchPageData, contentList, totalItems])
 
-  console.log((contentList || []).length, totalItems)
-
   return (
     <div>
       <CategoryHeader />
-      <ContentList />
+      <CategoryContentList />
     </div>
   )
 }
 
-export default Category
-
-// export default withCategoryContextProvider(Category)
+export default withContextProvider(CategoryContextProvider, CategoryPage)

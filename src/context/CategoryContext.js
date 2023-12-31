@@ -1,42 +1,34 @@
-import { createContext, useEffect, useState } from 'react'
+import { createContext, useMemo, useState } from 'react'
 
 const CategoryContext = createContext(null)
 
 const CategoryContextProvider = ({ children }) => {
+  //isSearchMode -- true, when the user has entered the minimum number of characters to trigger search
   const [isSearchMode, setIsSearchMode] = useState(false)
 
   const [pageData, setPageData] = useState({})
 
   const [searchResults, setSearchResults] = useState([])
 
-  const value = {
-    isSearchMode,
-    setIsSearchMode,
-    pageData,
-    setPageData,
-    searchResults,
-    setSearchResults
-  }
-
-  useEffect(() => {
-    console.log('mounting provider')
-    return () => {
-      console.log('unmounting provider')
-      setPageData({})
-    }
-  }, [])
+  const ctxValue = useMemo(
+    () => ({
+      isSearchMode,
+      setIsSearchMode,
+      pageData,
+      setPageData,
+      searchResults,
+      setSearchResults
+    }),
+    [isSearchMode, pageData, searchResults]
+  )
 
   return (
-    <CategoryContext.Provider value={value}>
+    <CategoryContext.Provider value={ctxValue}>
       {children}
     </CategoryContext.Provider>
   )
 }
 
-const withCategoryContextProvider = component => {
-  return <CategoryContextProvider>{component}</CategoryContextProvider>
-}
-
-export { CategoryContextProvider, withCategoryContextProvider }
+export { CategoryContextProvider }
 
 export default CategoryContext

@@ -1,8 +1,10 @@
 import React, { useContext, useState } from 'react'
 
-import styles from './styles.module.css'
-import { SEARCH_MAX_CHARS, SEARCH_MIN_CHARS } from '../../constants'
 import CategoryContext from '../../context/CategoryContext'
+
+import { SEARCH_MAX_CHARS, SEARCH_MIN_CHARS } from '../../constants'
+
+import styles from './styles.module.css'
 
 function SearchBar () {
   const [searchText, setSearchText] = useState('')
@@ -17,7 +19,6 @@ function SearchBar () {
     const searchResults = contentList.filter(item =>
       item.name.toLowerCase().includes(keyword.toLowerCase())
     )
-    console.log('search results ', searchResults)
     setSearchResults(searchResults)
     setIsSearchMode(true)
   }
@@ -25,7 +26,6 @@ function SearchBar () {
   const onChangeSearchText = e => {
     const value = e.target.value
     setSearchText(value)
-    console.log(value, value.length)
     if (value.length >= SEARCH_MIN_CHARS) {
       filterContentList(value)
     } else {
@@ -37,7 +37,7 @@ function SearchBar () {
     <input
       className={styles.container}
       type='text'
-      placeholder={`Type atleast ${SEARCH_MIN_CHARS} letters of the title to begin searching`}
+      placeholder={`Enter atleast ${SEARCH_MIN_CHARS} letters of the title`}
       value={searchText}
       onChange={onChangeSearchText}
       minLength={SEARCH_MIN_CHARS}

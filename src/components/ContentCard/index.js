@@ -1,13 +1,14 @@
-import React, { useState } from 'react'
-
-import styles from './styles.module.css'
-import { IMAGE_BASE_URL } from '../../constants'
+import React, { memo } from 'react'
 
 import Image from '../Image'
 
+import { IMAGE_BASE_URL } from '../../constants'
+
+import styles from './styles.module.css'
+
 function ContentCard ({ title, image }) {
   return (
-    <div className={styles.container}>
+    <li className={styles.container}>
       <Image
         className={styles.thumbnail}
         imgSrc={`${IMAGE_BASE_URL}/${image}`}
@@ -15,8 +16,8 @@ function ContentCard ({ title, image }) {
         showFallback={true}
       />
       <p>{title}</p>
-    </div>
+    </li>
   )
 }
 
-export default ContentCard
+export default memo(ContentCard)

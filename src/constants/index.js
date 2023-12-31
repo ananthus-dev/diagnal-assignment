@@ -1,3 +1,4 @@
+//Search constants
 export const SEARCH_MIN_CHARS = 3
 export const SEARCH_MAX_CHARS = 20
 

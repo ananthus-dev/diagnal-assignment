@@ -1,17 +1,21 @@
 .container{
     display: flex;
     align-items: center;
-    background-image: url('../../assets/images/nav_bar.png');
+    background: url('../../assets/images/nav_bar.png') ;
     background-size: contain;
     background-repeat: repeat-x;
     position: sticky;
-    top:0;
-    padding: 10px 0;
+    top:0px;
+    box-sizing: content-box;
+    height: 50px;
+    padding:15px 0 20px 0;
 }
 
+
+
 .icon{
-    height: 18px;
-    width: 18px;
+    height: 20px;
+    width: 20px;
 }
 
 .categoryTitle{
@@ -38,9 +42,16 @@
 }
 
 @media screen and (max-width:480px){
+
+    .container{
+    height: 30px;
+    padding:10px 0 15px 0;
+
+    }
+    
     .icon{
-        height: 16px;
-        width: 16px;
+        height: 18px;
+        width: 18px;
     }
 
     .categoryTitle{
@@ -49,9 +60,16 @@
 }
 
 @media screen and (max-width:320px){
+
+    .container{
+    height: 20px;
+    padding:5px 0 10px 0;
+
+    }
+
     .icon{
-        height: 12px;
-        width: 12px;
+        height: 16px;
+        width: 16px;
     }
 
     .categoryTitle{

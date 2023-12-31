@@ -1,11 +1,15 @@
-import React, { useContext, useState } from 'react'
+import React, { Suspense, useContext, useState } from 'react'
+import { lazy } from 'react'
+
+import Image from '../Image'
+
+import CategoryContext from '../../context/CategoryContext'
 
 import backButton from '../../assets/images/Back.png'
 import searchButton from '../../assets/images/search.png'
 import styles from './styles.module.css'
-import CategoryContext from '../../context/CategoryContext'
-import SearchBar from '../TextField'
-import Image from '../Image'
+
+const SearchBar = lazy(() => import('../SearchBar'))
 
 function CategoryHeader () {
   const [showSearchBar, setShowSearchBar] = useState(false)
@@ -34,7 +38,9 @@ function CategoryHeader () {
         onClick={onClickBack}
       />
       {showSearchBar ? (
-        <SearchBar />
+        <Suspense fallback={<span>Loading...</span>}>
+          <SearchBar />
+        </Suspense>
       ) : (
         <h6 className={styles.categoryTitle}>Romantic Comedy</h6>
       )}
