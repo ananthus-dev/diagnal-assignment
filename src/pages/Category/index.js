@@ -1,28 +1,19 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState
-} from 'react'
+import React, { useCallback, useContext, useEffect, useRef } from 'react'
 import CategoryHeader from '../../components/CategoryHeader'
 import ContentList from '../../components/ContentList'
-import CategoryContext, {
-  CategoryContextProvider,
-  withCategoryContextProvider
-} from '../../context/CategoryContext'
-import withContextProvider from '../../hoc/withContextProvider'
-import { getCategoryContentList, getCategoryPageData } from '../../services'
+import CategoryContext from '../../context/CategoryContext'
+import { getCategoryPageData } from '../../services'
 
 import throttle from 'lodash.throttle'
 
 function Category () {
   const {
+    isSearchMode,
     pageData: { totalItems, currentPage, contentList },
     setPageData
   } = useContext(CategoryContext)
 
-  const ref = useRef(null)
+  const prevScrollTop = useRef(0)
 
   const fetchPageData = useCallback(
     async (pageNum = 1) => {
@@ -57,30 +48,37 @@ function Category () {
   useEffect(() => {
     const onScroll = throttle(() => {
       //   console.log(contentList.length, totalItems)
-      if (contentList.length < totalItems) {
+      const currentScrollTop = document.documentElement.scrollTop
+
+      if (
+        currentScrollTop > prevScrollTop.current &&
+        !isSearchMode &&
+        contentList.length < totalItems
+      ) {
         const maxScrollTop =
           document.documentElement.scrollHeight -
           document.documentElement.clientHeight
 
-        const shouldFetchData =
-          document.documentElement.scrollTop >= 0.75 * maxScrollTop
+        const shouldFetchData = currentScrollTop >= 0.75 * maxScrollTop
 
         if (shouldFetchData) {
           console.log('75 percent reached', currentPage)
           fetchPageData(+currentPage + 1)
         }
       }
-    }, 500)
+
+      prevScrollTop.current = currentScrollTop
+    }, 200)
 
     document.addEventListener('scroll', onScroll)
 
     return () => document.removeEventListener('scroll', onScroll)
-  }, [currentPage, fetchPageData, contentList, totalItems])
+  }, [isSearchMode, currentPage, fetchPageData, contentList, totalItems])
 
   console.log((contentList || []).length, totalItems)
 
   return (
-    <div ref={ref}>
+    <div>
       <CategoryHeader />
       <ContentList />
     </div>

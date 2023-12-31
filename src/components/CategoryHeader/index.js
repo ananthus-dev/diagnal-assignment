@@ -5,22 +5,48 @@ import searchButton from '../../assets/images/search.png'
 import styles from './styles.module.css'
 import TextField from '../TextField'
 import CategoryContext from '../../context/CategoryContext'
+import { SEARCH_MAX_CHARS, SEARCH_MIN_CHARS } from '../../constants'
 
 function CategoryHeader () {
   const [searchText, setSearchText] = useState('')
+  const [showSearchBar, setShowSearchBar] = useState(false)
 
-  const { isSearchMode, onToggleSearchMode } = useContext(CategoryContext)
+  const toggleSearchBarVisibility = () => {
+    setShowSearchBar(showSearchBar => !showSearchBar)
+  }
 
-  const onChangeSearchText = value => {
+  const {
+    setSearchResults,
+    setIsSearchMode,
+    pageData: { contentList }
+  } = useContext(CategoryContext)
+
+  const filterContentList = keyword => {
+    const searchResults = contentList.filter(item =>
+      item.name.toLowerCase().includes(keyword.toLowerCase())
+    )
+    console.log('search results ', searchResults)
+    setSearchResults(searchResults)
+    setIsSearchMode(true)
+  }
+
+  const onChangeSearchText = e => {
+    const value = e.target.value
     setSearchText(value)
+    console.log(value, value.length)
+    if (value.length >= SEARCH_MIN_CHARS) {
+      filterContentList(value)
+    } else {
+      setIsSearchMode(false)
+    }
   }
 
   const onClickBack = () => {
-    if (isSearchMode) onToggleSearchMode()
+    if (showSearchBar) toggleSearchBarVisibility()
   }
 
   const onClickSearch = () => {
-    if (!isSearchMode) onToggleSearchMode()
+    if (!showSearchBar) toggleSearchBarVisibility()
   }
 
   return (
@@ -31,12 +57,13 @@ function CategoryHeader () {
         alt='backbutton'
         onClick={onClickBack}
       />
-      {isSearchMode ? (
+      {showSearchBar ? (
         <TextField
-          placeholder='Type atleast 3 letters of the title to begin searching'
+          placeholder={`Type atleast ${SEARCH_MIN_CHARS} letters of the title to begin searching`}
           value={searchText}
           onChange={onChangeSearchText}
-          maxChar={20}
+          minLength={SEARCH_MIN_CHARS}
+          maxLength={SEARCH_MAX_CHARS}
         />
       ) : (
         <h6 className={styles.categoryTitle}>Romantic Comedy</h6>

@@ -7,15 +7,15 @@ const CategoryContextProvider = ({ children }) => {
 
   const [pageData, setPageData] = useState({})
 
-  const onToggleSearchMode = () => {
-    setIsSearchMode(isSearchMode => !isSearchMode)
-  }
+  const [searchResults, setSearchResults] = useState([])
 
   const value = {
     isSearchMode,
-    onToggleSearchMode,
+    setIsSearchMode,
     pageData,
-    setPageData
+    setPageData,
+    searchResults,
+    setSearchResults
   }
 
   useEffect(() => {

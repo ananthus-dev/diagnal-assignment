@@ -6,12 +6,16 @@ import CategoryContext from '../../context/CategoryContext'
 
 function ContentList () {
   const {
-    pageData: { contentList = [] }
+    pageData: { contentList = [] },
+    searchResults,
+    isSearchMode
   } = useContext(CategoryContext)
+
+  const listItems = isSearchMode ? searchResults : contentList
 
   return (
     <main className={styles.container}>
-      {contentList.map((item, index) => (
+      {listItems.map((item, index) => (
         <ContentCard
           key={`${index}-${item.name}`}
           title={item.name}
